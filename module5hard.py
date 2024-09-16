@@ -12,24 +12,29 @@ class UrTube:
                 print(f'Пользователь {nickname} уже существует')
                 return
         User(nickname, password, age)
+
     def log_in(self, nickname, password):
         for user in self.users:
             if user.name == nickname and user.password == hash(password):
                 self.current_user = user
+
     def log_out(self):
         self.current_user = None
+
     def add(self, *video):
         for i in video:
             for v in self.videos:
                 if v.title == i.title:
                     return
         self.videos.append(video)
+
     def get_videos(self, word):
         matches = []
         for v in self.videos:
             if word.casefold() in v.title.casefold():
                 matches.append(v.title)
         return matches
+
     def watch_video(self, name):
         for v in self.videos:
             if v.title == name:
@@ -47,11 +52,6 @@ class UrTube:
                     print("Войдите в аккаунт, чтобы смотреть видео")
 
 
-
-
-
-
-
 class Video:
     def __init__(self, title, duration, **adult_mode):
         self.title = title
@@ -61,7 +61,6 @@ class Video:
         ur.videos.append(self)
 
 
-
 class User:
     def __init__(self, nickname, password, age):
         self.name = nickname
@@ -69,6 +68,7 @@ class User:
         self.age = age
         ur.users.append(self)
         ur.log_in(nickname, password)
+
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
