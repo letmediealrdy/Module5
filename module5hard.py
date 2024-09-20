@@ -11,7 +11,8 @@ class UrTube:
             if user.name == nickname:
                 print(f'Пользователь {nickname} уже существует')
                 return
-        User(nickname, password, age)
+        self.users.append(User(nickname, password, age))
+        self.log_in(nickname, password)
 
     def log_in(self, nickname, password):
         for user in self.users:
@@ -22,11 +23,9 @@ class UrTube:
         self.current_user = None
 
     def add(self, *video):
-        for i in video:
-            for v in self.videos:
-                if v.title == i.title:
-                    return
-        self.videos.append(video)
+        for v in video:
+            if v not in self.videos:
+                self.videos.append(v)
 
     def get_videos(self, word):
         matches = []
@@ -58,7 +57,6 @@ class Video:
         self.duration = duration
         self.mode = False
         self.mode = adult_mode
-        ur.videos.append(self)
 
 
 class User:
@@ -66,8 +64,6 @@ class User:
         self.name = nickname
         self.password = hash(password)
         self.age = age
-        ur.users.append(self)
-        ur.log_in(nickname, password)
 
 
 ur = UrTube()
